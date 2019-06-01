@@ -1,0 +1,29 @@
+// This #include statement was automatically added by the Particle IDE.
+#include <Adafruit_DHT.h>
+
+
+// DHT parameters
+#define DHTPIN 5
+#define DHTTYPE DHT11
+
+// DHT sensor
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+    Serial.begin(9600);
+    Serial.println("DHT11 test");
+    
+    dht.begin();
+}
+
+void loop() {
+
+    delay(2000);
+    float t = dht.getTempCelcius();
+    Particle.publish("Temperature", String(t));
+    
+    if (t >= 30)
+    {
+        Serial.println("Temperature warning! Please visit medicine cabinet")
+    }
+}
